@@ -1,2 +1,4 @@
 /.DS_Store
 /.syndicate_venv
+.syndicate-config-*/
+test.json
