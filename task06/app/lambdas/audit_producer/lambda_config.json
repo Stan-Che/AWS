@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "name": "audit_producer",
+  "func_name": "lambdas/audit_producer/index.handler",
+  "resource_type": "lambda",
+  "iam_role_name": "audit_producer-role",
+  "runtime": "nodejs20.x",
+  "memory": 128,
+  "timeout": 100,
+  "lambda_path": "lambdas/audit_producer",
+  "dependencies": [
+    {
+      "resource_name": "${config_table}",
+      "resource_type": "dynamodb_table"
+    }
+  ],
+  "event_sources": [
+    {
+      "resource_type": "dynamodb_trigger",
+      "target_table": "${config_table}",
+      "batch_size": 1
+    }
+  ],
+  "env_variables": {
+    "config_table": "${config_table}",
+    "audit_table": "${audit_table}"
+  },
+  "publish_version": false,
+  "url_config": {},
+  "ephemeral_storage": 512
+}
