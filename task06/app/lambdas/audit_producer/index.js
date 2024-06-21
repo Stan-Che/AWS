@@ -37,7 +37,7 @@ exports.handler = async (event) => {
         
         const params = {
             TableName:  process.env.audit_table,
-            Item: constructItem(eventName, key.S, newValue.N, oldValue.N),
+            Item: constructItem(eventName, key.S, Number(newValue.N), Number(oldValue.N)),
         };
         
         console.log('params', params);
