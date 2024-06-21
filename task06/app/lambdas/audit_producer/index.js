@@ -33,13 +33,14 @@ exports.handler = async (event) => {
         // console.log(`key ${key.S} | new value ${newValue.N}`);
         // console.log(`key ${key.S} | old value ${oldValue.N}`);
         
+        // console.log('process.env.target_table', process.env.audit_table);
+        
         const params = {
             TableName:  process.env.audit_table,
             Item: constructItem(eventName, key.S, newValue.N, oldValue.N),
         };
         
         console.log('params', params);
-        // console.log('process.env.target_table', process.env.audit_table);
         try {
             await dynamoDb.put(params).promise();
             console.log('dynamodb put succeeded');

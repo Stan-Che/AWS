@@ -22,7 +22,7 @@
     }
   ],
   "env_variables": {
-    "audit_table": "${audit_table}"
+    "audit_table": "Audit"
   },
   "publish_version": false,
   "url_config": {},
