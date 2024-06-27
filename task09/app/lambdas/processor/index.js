@@ -19,7 +19,7 @@ exports.handler = async (event) => {
         elevation,
         generationtime_ms,
         hourly,
-        hourly_units,
+        hourly_units: { time, temperature_2m },
         latitude,
         longitude,
         timezone,
@@ -34,8 +34,13 @@ exports.handler = async (event) => {
             forecast: {
                 elevation,
                 generationtime_ms,
-                hourly,
-                hourly_units,
+                hourly: {
+                    time: hourly.time,
+                    temperature_2m: hourly.temperature_2m,
+                },
+                hourly_units: {
+                    time, temperature_2m
+                },
                 latitude,
                 longitude,
                 timezone,
