@@ -1,0 +1,8 @@
+{
+  "name": "open-meteo-sdk",
+  "resource_type": "lambda_layer",
+  "runtimes": [
+    "nodejs20.x"
+  ],
+  "deployment_package": "open-meteo-sdk_layer.zip"
+}
