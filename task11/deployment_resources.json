@@ -58,7 +58,7 @@
       ]
     }
   },
-  "task10_api": {
+  "task11_api": {
     "resource_type": "api_gateway",
     "deploy_stage": "api",
     "dependencies": [],
