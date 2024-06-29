@@ -150,11 +150,14 @@ const signin = async ({ email, password }) => {
     }
 }
 
-const postTables = async (table) => {
+const postTables = async ({ id, ...table }) => {
     try {
         const params = {
             TableName:  process.env.tables_table,
-            Item: table,
+            Item: {
+                id: String(id),
+                ...table
+            },
         };
 
         await dynamoDb.put(params).promise();
@@ -162,7 +165,7 @@ const postTables = async (table) => {
         return {
             statusCode: 200,
             headers: {},
-            body: JSON.stringify({ id: table.id }),
+            body: JSON.stringify({ id: id }),
             isBase64Encoded: false,
         };
 
