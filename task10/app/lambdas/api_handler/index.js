@@ -244,6 +244,44 @@ const getTableById = async (id) => {
 
 const postReservations = async (reservation) => {
     try {
+        // check table exists
+        const { Item } = await dynamoDb.get({
+            TableName: process.env.tables_table,
+            Key: { id: String(reservation.tableNumber) }
+        }).promise();
+
+        if (!Item) {
+            throw new Error("table doesn't exist");
+        }
+
+        // check there's no overlap with other reservations
+        let reservations = [];
+        let lastEvaluatedKey = null;
+        const scapParams = {
+            TableName: process.env.reservations_table,
+        }
+    
+        do {
+            const data = await dynamoDb.scan(scapParams).promise();
+
+            reservations = reservations.concat(data.Items);
+            lastEvaluatedKey = data.LastEvaluatedKey;
+            scapParams.ExclusiveStartKey = lastEvaluatedKey;
+        } while (lastEvaluatedKey);
+
+        const sameDateTableRes = reservations.filter(({ date, tableNumber }) => 
+            date === reservation.date && tableNumber === reservation.tableNumber)
+
+        const noOverlap = sameDateTableRes.every(({ date, slotTimeStart, slotTimeEnd }) =>
+            reservation.slotTimeEnd < slotTimeStart
+            || reservation.slotTimeStart > slotTimeEnd
+        )
+
+        if (!noOverlap) {
+            throw new Error("reservation overlaps");
+        }
+
+        // add reservation to DB
         const id = uuidv4();
         const params = {
             TableName:  process.env.reservations_table,
