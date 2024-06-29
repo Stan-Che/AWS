@@ -134,7 +134,7 @@ const signin = async ({ email, password }) => {
             headers: {},
             body: JSON.stringify({
                 idToken: IdToken,
-                accessToken: AccessToken,
+                accessToken: IdToken,
                 refreshToken: RefreshToken,
                 expiresIn: ExpiresIn
             }),
