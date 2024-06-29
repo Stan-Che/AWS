@@ -11,9 +11,9 @@
   "dependencies": [],
   "event_sources": [],
   "env_variables": {
-    "tables_table": "Tables",
-    "reservations_table": "Reservations",
-    "booking_userpool": "simple-booking-userpool"
+      "tables_table": "${tables_table}",
+      "reservations_table": "${reservations_table}",
+      "booking_userpool": "${booking_userpool}"
   },
   "publish_version": false,
   "url_config": {},
