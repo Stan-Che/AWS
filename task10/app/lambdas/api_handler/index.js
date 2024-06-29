@@ -200,7 +200,7 @@ const getTables = async () => {
             statusCode: 200,
             headers: {},
             body: JSON.stringify({
-                tables
+                tables: tables.map(({ id, ...rest }) => ({ id: Number(id), ...rest }))
             }),
             isBase64Encoded: false,
         };
@@ -226,7 +226,10 @@ const getTableById = async (id) => {
         return {
             statusCode: 200,
             headers: {},
-            body: JSON.stringify(Item),
+            body: JSON.stringify({
+                ...Item,
+                id: Number(id),
+            }),
             isBase64Encoded: false,
         };
     } catch (error) {
