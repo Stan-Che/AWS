@@ -18,13 +18,6 @@ const mehtods = {
     get: 'GET',
 }
 
-const corsHeaders = {
-    'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': '*',
-    'Accept-Version': '*'
-}
-
 const getAppClientIdByUserPoolIdAndAppName = async (userPoolId, clientAppName) => {
     const { UserPoolClients } = await cognito.listUserPoolClients({
         UserPoolId: userPoolId,
@@ -97,7 +90,7 @@ const signup = async ({ firstName, lastName, email, password }) => {
     
         return {
             statusCode: 200,
-            headers: corsHeaders,
+            headers: {},
             body: JSON.stringify({
                 IdToken,
                 AccessToken,
@@ -138,7 +131,7 @@ const signin = async ({ email, password }) => {
 
         return {
             statusCode: 200,
-            headers: corsHeaders,
+            headers: {},
             body: JSON.stringify({
                 idToken: IdToken,
                 accessToken: IdToken,
@@ -171,7 +164,7 @@ const postTables = async ({ id, ...table }) => {
 
         return {
             statusCode: 200,
-            headers: corsHeaders,
+            headers: {},
             body: JSON.stringify({ id: id }),
             isBase64Encoded: false,
         };
@@ -205,7 +198,7 @@ const getTables = async () => {
 
         return {
             statusCode: 200,
-            headers: corsHeaders,
+            headers: {},
             body: JSON.stringify({
                 tables: tables.map(({ id, ...rest }) => ({ id: Number(id), ...rest }))
             }),
@@ -232,7 +225,7 @@ const getTableById = async (id) => {
 
         return {
             statusCode: 200,
-            headers: corsHeaders,
+            headers: {},
             body: JSON.stringify({
                 ...Item,
                 id: Number(id),
@@ -308,7 +301,7 @@ const postReservations = async (reservation) => {
 
         return {
             statusCode: 200,
-            headers: corsHeaders,
+            headers: {},
             body: JSON.stringify({ reservationId: id }),
             isBase64Encoded: false,
         };
@@ -341,7 +334,7 @@ const getReservations = async () => {
 
         return {
             statusCode: 200,
-            headers: corsHeaders,
+            headers: {},
             body: JSON.stringify({
                 reservations
             }),
@@ -385,7 +378,7 @@ exports.handler = async (event) => {
 
     return {
         statusCode: 200,
-        headers: corsHeaders,
+        headers: {},
         body: 'All good',
         isBase64Encoded: false,
     }
